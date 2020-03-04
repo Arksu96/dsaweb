@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <app-navbar></app-navbar>
+    <app-menutab></app-menutab>
   </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar';
+import Menutab from './components/Menutab';
 
 export default {
   name: 'App',
   components: {
-    'app-navbar': Navbar
+    'app-navbar': Navbar,
+    'app-menutab': Menutab
   }
 }
 </script>
