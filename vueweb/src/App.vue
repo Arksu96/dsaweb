@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <app-navbar></app-navbar>
-    <app-menutab></app-menutab>
+    <!--v-on nasluchuje czy nastepuje emit z app-navbar, wysyla dane do updateView-->
+    <app-navbar v-on:showMenuTab="updateView($event)"></app-navbar>
+    <app-menutab v-if="showMenu"></app-menutab>
   </div>
 </template>
 
@@ -14,8 +15,21 @@ export default {
   components: {
     'app-navbar': Navbar,
     'app-menutab': Menutab
+  },
+  data(){
+    return{
+      showMenu: false
+    }
+  },
+  methods:{
+    //funkcja z event do sprawdzania czy ma wyswietlic menuTab (updaredView dowolna nazwa parametru
+    //tu siedzi $event)
+    updateView: function(updatedView){
+      this.showMenu = updatedView;
+    }
   }
 }
+
 </script>
 
 <style>

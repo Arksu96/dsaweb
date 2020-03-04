@@ -3,9 +3,7 @@
         <nav>
             <ul>
                 <button v-on:click="menuOn" id="menu">
-                    <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 3.125V0H25V3.125H0ZM0 9.375H25V6.25H0V9.375ZM25 15.625H0V12.5H25V15.625ZM25 21.875H0V18.75H25V21.875Z" fill="white" fill-opacity="0.79"/>
-                    </svg>
+                    <img src="../assets/icons/view_headline_24px.svg" />
                 </button>
             </ul>
         </nav>
@@ -13,7 +11,6 @@
 </template>
 
 <script>
-//var showMenu = false
 
 export default {
     data(){
@@ -22,8 +19,11 @@ export default {
         }
     },
     methods:{
+        //wyświetlanie menuTab
         menuOn: function(){
             this.showMenu = !this.showMenu;
+            //przesyla wartosc showMenu do app.vue
+            this.$emit('showMenuTab', this.showMenu);
         }
     }
 }
