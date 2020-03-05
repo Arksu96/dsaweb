@@ -31,6 +31,9 @@ export default {
 </script>
 
 <style scoped>
+div{
+    z-index: 1;
+}
 nav{
     position: fixed;
     height: 50px;
