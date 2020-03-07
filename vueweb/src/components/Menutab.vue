@@ -48,23 +48,25 @@ ul{
     padding: 0;
     margin: 0;
     width: 100%;
-    display: inline-block;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap:wrap;
 
 }
 .menu-tab{
-    width: 33.3%;
+    width: 32.5%;
     min-width: 250px;
     height: 50%;
-    background-color: black;
-    opacity: 0.5;
-    border: 5px solid #8A898D;
+    background-color: #3D3D3D;
+    border: 5px solid transparent;
     box-sizing: border-box;
     border-radius: 10px;
-    float: left;
+    margin: 5px;
 }
 .menu-tab-icon{
     display: block;
     margin: auto;
     padding: 10% 0%;
 }
+
 </style>
