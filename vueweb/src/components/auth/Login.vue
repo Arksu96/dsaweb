@@ -3,7 +3,7 @@
 <template>
   <div class="login-form">
     <h2 class="login-heading">Login</h2>
-    <form action="#" @submit.prevent="login">
+    <form @submit.prevent="login">
 
       <div class="form-control">
         <label for="email">Username/Email</label>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-// jak tu https://www.youtube.com/watch?v=GRhkhSzyApc
+// jak tu https://scotch.io/tutorials/handling-authentication-in-vue-using-vuex#toc-setting-up-the-application-modules
 // trzeba ogarnac vuex i axios (axios juz zainstalowane)
     name: 'login',
     data() {
@@ -34,17 +34,15 @@ export default {
         password: '',
         }
     },
-    /*methods: {
+    methods: {
         login() {
-        this.$store.dispatch('retrieveToken', {
+        this.$store.dispatch('login', {
             username: this.username,
             password: this.password,
-        })
-            .then(response => {
-            this.$router.push({ name: 'todo' })
-            })
+        }).then(()=>this.$router.push('/'))
+        .catch(err => console.log(err))
         }
-    }*/
+    }
 }
 </script>
 
