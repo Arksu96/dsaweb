@@ -24,9 +24,13 @@
 </template>
 
 <script>
+
 export default {
 // jak tu https://scotch.io/tutorials/handling-authentication-in-vue-using-vuex#toc-setting-up-the-application-modules
 // trzeba ogarnac vuex i axios (axios juz zainstalowane)
+//https://www.youtube.com/watch?v=Vd1YwbHrY1Q&list=PLfdtiltiRHWF1jqLcNO_2jWJXj9RuSDvY&index=1
+// i od strony backendu ogarnac php i laravel
+
     name: 'login',
     data() {
         return {
@@ -35,15 +39,17 @@ export default {
         }
     },
     methods: {
-        login() {
+        /*login() {
         this.$store.dispatch('login', {
             username: this.username,
             password: this.password,
         }).then(()=>this.$router.push('/'))
         .catch(err => console.log(err))
-        }
+        }*/
     }
 }
+//example@gmail.com qwerty
+
 </script>
 
 <style scoped>

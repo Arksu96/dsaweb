@@ -1,22 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
+//import axios from 'axios';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        status: '',
+        /*status: '',
         token: localStorage.getItem('token') || '',
-        user : {
-        }
+        user : null*/
     },
     getters: {
-        isLoggedIn: state => !!state.token,
-        authStatus: state => state.status,
+        //isLoggedIn: state => !!state.token,
+        //authStatus: state => state.status,
     },
     mutations: {
-        auth_request(state){
+        /*auth_request(state){
             state.status = 'loading'
           },
           auth_success(state, token, user){
@@ -26,10 +25,10 @@ export default new Vuex.Store({
           },
           auth_error(state){
             state.status = 'error'
-          },
+          },*/
     },
     actions: {
-        login({commit}, user){
+        /*login({commit}, user){
             return new Promise((resolve, reject) => {
               commit('auth_request')
               axios({
@@ -50,6 +49,8 @@ export default new Vuex.Store({
                 reject(err)
               })
             })
-        },
+        },*/
+    },
+    modules: {
     }
 });
