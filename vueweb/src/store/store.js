@@ -1,21 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-//import axios from 'axios';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        /*status: '',
+        status: '',
         token: localStorage.getItem('token') || '',
-        user : null*/
+        user : {}
     },
     getters: {
-        //isLoggedIn: state => !!state.token,
-        //authStatus: state => state.status,
+        isLoggedIn: state => !!state.token,
+        authStatus: state => state.status,
     },
     mutations: {
-        /*auth_request(state){
+        auth_request(state){
             state.status = 'loading'
           },
           auth_success(state, token, user){
@@ -25,14 +25,19 @@ export default new Vuex.Store({
           },
           auth_error(state){
             state.status = 'error'
-          },*/
+          },
+          logout(state){
+            state.status = ''
+            state.token = ''
+          },
     },
     actions: {
-        /*login({commit}, user){
+      //nadzworuje wymiane z serwerem
+        login({commit}, user){
             return new Promise((resolve, reject) => {
               commit('auth_request')
               axios({
-                  url: 'http://localhost:8081/login', 
+                  url: 'auth/signin', 
                   data: user, 
                   method: 'POST' })
               .then(resp => {
@@ -49,8 +54,14 @@ export default new Vuex.Store({
                 reject(err)
               })
             })
-        },*/
+        },
+        logout({commit}){
+          return new Promise((resolve) => {
+              commit('logout')
+              localStorage.removeItem('token')
+              delete axios.defaults.headers.common['Authorization']
+              resolve()
+          })
+        }
     },
-    modules: {
-    }
 });

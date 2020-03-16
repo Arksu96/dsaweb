@@ -5,6 +5,7 @@
                 <button v-on:click="menuOn" id="menu">
                     <img src="../assets/icons/view_headline_24px.svg" />
                 </button>
+                <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
             </ul>
         </nav>
     </div>
@@ -24,8 +25,19 @@ export default {
             this.showMenu = !this.showMenu;
             //przesyla wartosc showMenu do app.vue
             this.$emit('showMenuTab', this.showMenu);
+        },
+        //funkcjonowanie wylogowywania
+        logout: function () {
+            this.$store.dispatch('logout')
+            .then(() => {
+            this.$router.push('/login')
+            })
         }
-    }
+    },
+    computed : {
+        //zwraca zmienna isLoggedIn z getters
+      isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+    },
 }
 
 </script>
