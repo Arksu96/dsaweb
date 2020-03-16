@@ -48,7 +48,7 @@ export default {
         }*/
     }
 }
-//example@gmail.com qwerty
+//example@gmail.com 1234
 
 </script>
 
