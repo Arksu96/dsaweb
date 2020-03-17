@@ -3,11 +3,13 @@
 <template>
   <div class="login-form">
     <div class="login-heading">
-      <img src="../../assets/DSA_logo1shad.png" />
+      <img src="../../assets/DSA_logo1shad330x165.png" />
     </div>
-    <div class="login-unauthorize">
-
-    </div>
+    <transition name="fade">
+      <div class="login-unauthorize" v-if="showWarning">
+        <p>Niewłaściwe dane</p>
+      </div>
+    </transition>
     <form class="form-login" @submit.prevent="login">
       <div class="form-control">
         <input type="email" name="username" id="username" class="login-input" v-model="form.email" placeholder="Email">
@@ -39,7 +41,8 @@ export default {
           form:{
             email: '',
             password: '',
-          }
+          },
+          showWarning: false
         }
     },
     methods: {
@@ -49,7 +52,13 @@ export default {
             email: this.form.email,
             password: this.form.password,
         }).then(()=>this.$router.push('/'))
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          if(err.response.status == 401){
+            this.showWarning = true;
+          } else {
+            this.showWarning = false;
+          }})
       }
     }
 }
@@ -71,7 +80,7 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-image: linear-gradient(top, #7F8A94, #7F8A94 37%, transparent 37%, transparent 100%);
+  background-image: linear-gradient(top, #7F8A94, #7F8A94 38%, transparent 38%, transparent 100%);
 }
 .login-heading{
   display: block;
@@ -111,6 +120,24 @@ export default {
   outline: none;
   cursor: pointer;
   font-size: 20px; 
+}
+.login-unauthorize{
+  display: block;
+  background: #F2545B;
+  width: 100%;
+  border-top: 5px solid #F2545B;
+  border-bottom: 5px solid #F2545B;
+}
+.login-unauthorize :first-child{
+  margin: 0;
+  text-align: center;
+  color: #fff;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 </style>
