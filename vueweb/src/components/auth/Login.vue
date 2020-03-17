@@ -2,9 +2,12 @@
 
 <template>
   <div class="login-form">
-    <span class="login-heading">
+    <div class="login-heading">
       <img src="../../assets/DSA_logo1shad.png" />
-    </span>
+    </div>
+    <div class="login-unauthorize">
+
+    </div>
     <form class="form-login" @submit.prevent="login">
       <div class="form-control">
         <input type="email" name="username" id="username" class="login-input" v-model="form.email" placeholder="Email">
@@ -15,7 +18,7 @@
       </div>
 
       <div class="form-control-btn">
-        <button type="submit" class="btn-submit">Zaloguj</button>
+        <button type="submit" class="btn-submit">ZALOGUJ</button>
       </div>
 
     </form>
@@ -107,7 +110,7 @@ export default {
   color: #fff;
   outline: none;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 20px; 
 }
 
 </style>
