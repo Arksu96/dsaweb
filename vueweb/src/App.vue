@@ -14,6 +14,9 @@ export default {
 </script>
 
 <style>
+*{
+    font-family: 'Roboto', sans-serif;
+}
 body{
   margin:0px;
   padding:0px;
