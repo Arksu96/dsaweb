@@ -8,28 +8,33 @@ export default new Vuex.Store({
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user : {}
+        user : {},
+        showMenu: false //kontrola wysuwania menu
     },
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        showMenu: state => state.showMenu
     },
     mutations: {
         auth_request(state){
             state.status = 'loading'
           },
-          auth_success(state, token, user){
-            state.status = 'success'
-            state.token = token
-            state.user = user
-          },
-          auth_error(state){
-            state.status = 'error'
-          },
-          logout(state){
-            state.status = ''
-            state.token = ''
-          },
+        auth_success(state, token, user){
+          state.status = 'success'
+          state.token = token
+          state.user = user
+        },
+        auth_error(state){
+          state.status = 'error'
+        },
+        logout(state){
+          state.status = ''
+          state.token = ''
+        },
+        toggleShowMenu: (state) => { //funkcja zmiany stanu
+          return state.showMenu = !state.showMenu
+        }
     },
     actions: {
       //nadzworuje wymiane z serwerem
@@ -62,6 +67,9 @@ export default new Vuex.Store({
               delete axios.defaults.headers.common['Authorization']
               resolve()
           })
+        },
+        toggleShowMenu({commit}){
+          commit('toggleShowMenu');
         }
     },
 });

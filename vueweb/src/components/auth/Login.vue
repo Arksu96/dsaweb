@@ -53,7 +53,6 @@ export default {
             password: this.form.password,
         }).then(()=>this.$router.push('/'))
         .catch(err => {
-          console.log(err)
           if(err.response.status == 401){
             this.showWarning = true;
           } else {
@@ -70,6 +69,7 @@ export default {
 
 .login-form{
   position: absolute;
+  margin: 0;
   width: 360px;
   background: #C4C4C4;
   height: 70%;

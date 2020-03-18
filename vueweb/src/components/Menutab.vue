@@ -26,12 +26,13 @@ export default {
                 settings: {
                     icon: require('../assets/icons/settings_24px.svg')
                 }
-            }
+            },
         }
     },
     methods:{
         tabChoose: function(page){
-            this.$router.push(`/${page}`);
+            this.$router.push(`/${page}`).catch(err => {console.log(err)});
+            this.$store.commit('toggleShowMenu');
         }
     }
 }
@@ -41,7 +42,7 @@ export default {
 
 div{
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     top: 50px;
     width: 100%;
 }

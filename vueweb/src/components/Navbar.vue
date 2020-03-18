@@ -2,7 +2,7 @@
     <div>
         <nav>
             <ul>
-                <button v-on:click="menuOn" id="menu">
+                <button v-on:click="$store.commit('toggleShowMenu')" id="menu">
                     <img src="../assets/icons/view_headline_24px.svg" />
                 </button>
                 <span v-if="isLoggedIn" class="logout-bnt">
@@ -18,17 +18,9 @@
 export default {
     data(){
         return{
-            showMenu: false
         }
     },
     methods:{
-        //wyświetlanie menuTab
-        menuOn: function(){
-            this.showMenu = !this.showMenu;
-            //przesyla wartosc showMenu do app.vue
-            this.$emit('showMenuTab', this.showMenu);
-        },
-        //funkcjonowanie wylogowywania
         logout: function () {
             this.$store.dispatch('logout')
             .then(() => {
@@ -47,9 +39,12 @@ export default {
 <style scoped>
 div{
     z-index: 1;
+    
 }
 nav{
     position: fixed;
+    left: 0px;
+    top: 0px;
     height: 50px;
     width: 100%;
     background-color: #D63131;

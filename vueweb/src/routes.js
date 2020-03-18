@@ -14,7 +14,7 @@ export default [
     {
         path: '/login', 
         name:'login', 
-        component: Login
+        component: Login,
     }, 
     {
         path: '/alarm',
