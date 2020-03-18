@@ -19,16 +19,19 @@ export default [
     {
         path: '/alarm',
         name: 'alarmtab',
-        component: AlarmTab
+        component: AlarmTab,
+        meta: {requiresAuth: true}
     },
     {
         path: '/stats',
         name: 'statstab',
-        component: StatsTab
+        component: StatsTab,
+        meta: {requiresAuth: true}
     },
     {
         path: '/settings',
         name: 'settingstab',
-        component: SettingsTab
+        component: SettingsTab,
+        meta: {requiresAuth: true}
     }
 ]

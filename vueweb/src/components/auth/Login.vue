@@ -1,7 +1,8 @@
 <!--Panel logowania-->
 
 <template>
-  <div class="login-form">
+  <!--v-show nie pozwala zalogowanemu wejść do /login -->
+  <div class="login-form" v-show="!$store.getters.isLoggedIn">
     <div class="login-heading">
       <img src="../../assets/DSA_logo1shad330x165.png" />
     </div>
