@@ -65,6 +65,9 @@ nav{
     border: 2px solid #6F6E73;
     border-radius: 0px 0px 10px 0px;
 }
+#menu:hover{
+    cursor: pointer;
+}
 .logout-bnt{
     float: right;
     margin: 0px 15px;
