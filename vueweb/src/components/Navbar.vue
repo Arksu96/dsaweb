@@ -65,7 +65,7 @@ nav{
 }
 .logout-bnt{
     float: right;
-    margin: 0px 15px;
+    margin: 15px 15px;
     color: #ffffffb2;
     cursor: pointer;
     text-decoration: none;
