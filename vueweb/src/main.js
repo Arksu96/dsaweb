@@ -5,6 +5,7 @@ import Routes from './routes'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import store from './store/store'
+import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 Axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
@@ -40,5 +41,6 @@ router.beforeEach((to, from, next) => {
 new Vue({
   render: h => h(App),
   router: router,
+  vuetify,
   store
 }).$mount('#app')
