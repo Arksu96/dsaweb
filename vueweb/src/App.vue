@@ -2,7 +2,7 @@
   <div>
     <!--v-on nasluchuje czy nastepuje emit z app-navbar, wysyla dane do updateView
      v-on:showMenuTab="updateView($event)"-->
-    <app-navbar v-if="isLoggedIn"></app-navbar>
+    <app-navbar class="navbar" v-if="isLoggedIn"></app-navbar>
     <app-menutab v-if="$store.state.showMenu && isLoggedIn"></app-menutab>
     <router-view class="pages"></router-view>
   </div>

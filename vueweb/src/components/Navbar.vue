@@ -43,6 +43,7 @@ div{
 }
 nav{
     position: fixed;
+    z-index: 1;
     left: 0px;
     top: 0px;
     height: 50px;
