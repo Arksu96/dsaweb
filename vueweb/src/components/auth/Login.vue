@@ -11,7 +11,8 @@
         <p>Niewłaściwe dane</p>
       </div>
     </transition>
-    <form class="form-login" @submit.prevent="login">
+    <div class="form-login-inputs">
+    <form @submit.prevent="login">
       <div class="form-control">
         <input type="email" name="username" id="username" class="login-input" v-model="form.email" placeholder="Email">
       </div>
@@ -25,6 +26,7 @@
       </div>
 
     </form>
+    </div>
   </div>
 </template>
 
@@ -73,7 +75,6 @@ export default {
   margin: 0;
   width: 360px;
   background: #C4C4C4;
-  height: 70%;
   padding: 20px 20px;
   border: 3px solid #F2545B;
   box-shadow: 0px 4px 15px #D63131;
@@ -81,16 +82,21 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-image: linear-gradient(top, #7F8A94, #7F8A94 38%, transparent 38%, transparent 100%);
+  background-image: linear-gradient(top, #7F8A94, #7F8A94 38%, transparent 60%, transparent 100%);
 }
 .login-heading{
-  display: block;
+  display: table-cell;
   text-align:center;
+  vertical-align: middle;
 }
 .login-heading img{
   width: 330px;
   height: 160px;
+  max-width: 100%;
+  max-height: 100%;
+  position: relative;
   opacity: 0.4;
+  transform: translate(-5px, -10px);
 }
 .form-control{
   border-bottom: 2px solid #adadad;
@@ -139,6 +145,9 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.form-login-inputs{
+  align-content: flex-end;
 }
 
 </style>

@@ -159,7 +159,7 @@ export default {
 /* tło suwaka */
 >>>.v-application .primary.lighten-3{
     border-radius: 12px;
-    background: -webkit-gradient(linear, left top, right top, from(#ffd400), to(#002b58));
+    background: linear-gradient(to right, #002b58, #ffd400, #002b58);
 }
 /* pole tekstowe*/
 >>>.theme--light.v-input input, .theme--light.v-input textarea{
@@ -174,6 +174,9 @@ export default {
 }
 >>>.v-application--is-ltr .v-input__prepend-outer{
     margin-left: 9px;
+}
+>>> .v-text-field input::-webkit-inner-spin-button {
+  transform: translate(0px, -4px);
 }
 
 </style>
