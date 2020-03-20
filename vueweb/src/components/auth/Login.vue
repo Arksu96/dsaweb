@@ -95,7 +95,7 @@ export default {
 .form-control{
   border-bottom: 2px solid #adadad;
   position: relative;
-  margin: 30px 0;
+  margin: 15px 0;
 }
 .form-control input{
   font-size: 15px;

@@ -9,7 +9,7 @@ export default new Vuex.Store({
         status: '',
         token: localStorage.getItem('token') || '',
         user : {},
-        showMenu: false //kontrola wysuwania menu
+        showMenu: false, //kontrola wysuwania menu
     },
     getters: {
         isLoggedIn: state => !!state.token,
