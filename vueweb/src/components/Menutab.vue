@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fade-content">
         <ul>
             <!--petla tworzenia kafelkow razem z przypisanymi iconami-->
             <!--id zeby nie wystepowalo ostrzezenie o powtarzaniu identyfikatorow-->
@@ -39,12 +39,15 @@ export default {
 </script>
 
 <style scoped>
-
 div{
-    position: absolute;
+    position: fixed;
     z-index: 1;
     top: 50px;
     width: 100%;
+}
+.fade-content{
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */    
 }
 ul{
     /* zrobic gridem*/
@@ -53,26 +56,28 @@ ul{
     margin: 0;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
-    flex-wrap:wrap;
+    justify-content: space-around;
+    flex-wrap:inherit;
 
 }
 .menu-tab{
     width: 32.5%;
-    min-width: 250px;
-    height: 50%;
+    /* min-width: 250px; */
+    height: auto;
     background-color: #3D3D3D;
     border: 5px solid transparent;
     box-sizing: border-box;
     border-radius: 10px;
     margin: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .menu-tab:hover{
-    background-color: rgb(85, 85, 85);    
+    background-color: rgb(145, 145, 145);    
 }
 .menu-tab-icon{
     display: block;
     margin: auto;
+    max-width: 50%;
     padding: 10% 0%;
 }
 

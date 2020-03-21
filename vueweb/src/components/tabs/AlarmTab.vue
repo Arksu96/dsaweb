@@ -63,18 +63,18 @@
                     outlined
                     wrap
                     >
-                        <v-list-item-content>
-                            <div class="overline mb-4">OVERLINE</div>
-                            <v-list-item-title class="headline mb-1">Headline 5</v-list-item-title>
-                            <div>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, 
-                                suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam 
-                                pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque 
-                                semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, 
-                                dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, 
-                                pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus 
-                            </div>
-                        </v-list-item-content>
+                    <v-list-item-content>
+                        <div class="overline mb-4">OVERLINE</div>
+                        <v-list-item-title class="headline mb-1">Headline 5</v-list-item-title>
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, 
+                            suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam 
+                            pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque 
+                            semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, 
+                            dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, 
+                            pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus 
+                        </div>
+                    </v-list-item-content>
                     </v-card>
                 </v-flex>
             </v-layout>

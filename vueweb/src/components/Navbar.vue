@@ -39,7 +39,6 @@ export default {
 <style scoped>
 div{
     z-index: 1;
-    
 }
 nav{
     position: fixed;
