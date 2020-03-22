@@ -46,13 +46,9 @@
                             ></v-text-field>
                         </template>
                         </v-range-slider>
-                        <!-- odwrocenie zaznaczenia -->
-                        <v-checkbox 
-                        v-model="checkbox1" 
-                        :label="'Odwróć zaznaczenie'"
-                        @change="reverseSlider"
-                        >
-                        </v-checkbox>
+                        <ul class="range-labels">
+                            <li class="range-label-text">Następny dzień</li>
+                        </ul>
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn icon @click="addCard">
@@ -97,10 +93,13 @@ export default {
         return{
             alarms: [],
             min: 0,
-            max: 86399,
+            max: 172799,
             range: [10000, 50000],
             timeRange: 0,
-            checkbox1: false
+            marks: [{
+                value: 86400,
+                label: 'Nasd'
+            }]
         }
     },
     methods: {
@@ -111,30 +110,32 @@ export default {
         },
         //zamiana str HHmm na liczbe odpowiadającą położeniu suwaka
         onChange(value){
+            let rangeId = event.target.id.split('-');
             if(typeof value == "string"){
                 //gdyby usunął godzinę
                 if(value === ""){
                    this.timeRange = 0; 
                 } else {
                 let arr = value.split(':');
-                let val = (parseInt(arr[0])*3600)+(parseInt(arr[1])*60);
+                let val = 0;
+                if(this.range[rangeId[1]]>=86400){
+                    val = ((parseInt(arr[0])*3600)+(parseInt(arr[1])*60))+86400;
+                } else {
+                    val = (parseInt(arr[0])*3600)+(parseInt(arr[1])*60);
+                }
                 this.timeRange = val;
                 }
             }
             //pozwala zmienić wartość w kokretnym na podstawie id
-            let rangeId = event.target.id.split('-');
             return this.$set(this.range,parseInt(rangeId[1]), this.timeRange)
         },
-        //zamienia css żeby wyglądało że suwak się odwrócił (dodać inny odczyt danych)
-        reverseSlider: function(){
-            if(this.checkbox1){
-                console.log(document.getElementById('time-slider1'));
-            }
-        }
     },
     filters: {
         //formatowanie na HH:mm
         formattedTime: function (value) {
+            if(value>=86400){
+                value -= 86400;
+            }
             var sec_num = parseInt(value, 10);
             var hours   = Math.floor(sec_num / 3600);
             var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -172,7 +173,7 @@ export default {
 /* tło suwaka */
 >>>.v-application .primary.lighten-3{
     border-radius: 12px;
-    background: linear-gradient(to right, #002b58, #ffd400, #002b58);
+    background: linear-gradient(to right, #002b58, #ffd400, #002b58, #ffd400, #002b58);
 }
 /* pole tekstowe*/
 >>>.theme--light.v-input input, .theme--light.v-input textarea{
@@ -191,28 +192,16 @@ export default {
 >>> .v-text-field input::-webkit-inner-spin-button {
   transform: translate(0px, -4px);
 }
-/* odwrocenie zaznaczenia */
-/* checkbox */
->>>.v-input--selection-controls{
-    margin-top: 0px;
-    padding-left: 8px;
+/* label */
+.range-labels {
+  list-style: none;
+  text-align: center;
+  transform: translate(5px, -10px);
 }
->>>.theme--light.v-icon{
-    color: white;
-    opacity: 0.8;
+.range-label-text{
+    font-size: 15px;
+    color: #e7e9ea;
 }
->>>.theme--light.v-label{
-    color: white;
-    opacity: 0.8;
-}
->>>.v-application .primary--text {
-    color: white !important;
-}
->>>.v-messages{
-    min-height: 0px;
-}
-/* >>>.v-application .primary.lighten-3{
-    border-radius: 12px;
-    background: white !important;
-} */
+
+
 </style>
