@@ -2,6 +2,7 @@
     <div>
     <v-app
         background="transparent"
+        id="time-slider"
     >
         <v-container class="user-card">
             <v-layout row justify-space-between>
@@ -14,13 +15,11 @@
                     >
                     <!-- slider -->
                         <v-range-slider 
-                            app
                             v-model="range"
                             :max="max"
                             :min="min"
                             hide-details
                             color="#e7e9ea"
-                            class="v-slider-xd"
                         >
                         <!-- lewe pole tekstowe -->
                         <template v-slot:prepend>
@@ -47,6 +46,13 @@
                             ></v-text-field>
                         </template>
                         </v-range-slider>
+                        <!-- odwrocenie zaznaczenia -->
+                        <v-checkbox 
+                        v-model="checkbox1" 
+                        :label="'Odwróć zaznaczenie'"
+                        @change="reverseSlider"
+                        >
+                        </v-checkbox>
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn icon @click="addCard">
@@ -93,7 +99,8 @@ export default {
             min: 0,
             max: 86399,
             range: [10000, 50000],
-            timeRange: 0
+            timeRange: 0,
+            checkbox1: false
         }
     },
     methods: {
@@ -117,6 +124,12 @@ export default {
             //pozwala zmienić wartość w kokretnym na podstawie id
             let rangeId = event.target.id.split('-');
             return this.$set(this.range,parseInt(rangeId[1]), this.timeRange)
+        },
+        //zamienia css żeby wyglądało że suwak się odwrócił (dodać inny odczyt danych)
+        reverseSlider: function(){
+            if(this.checkbox1){
+                console.log(document.getElementById('time-slider1'));
+            }
         }
     },
     filters: {
@@ -178,5 +191,28 @@ export default {
 >>> .v-text-field input::-webkit-inner-spin-button {
   transform: translate(0px, -4px);
 }
-
+/* odwrocenie zaznaczenia */
+/* checkbox */
+>>>.v-input--selection-controls{
+    margin-top: 0px;
+    padding-left: 8px;
+}
+>>>.theme--light.v-icon{
+    color: white;
+    opacity: 0.8;
+}
+>>>.theme--light.v-label{
+    color: white;
+    opacity: 0.8;
+}
+>>>.v-application .primary--text {
+    color: white !important;
+}
+>>>.v-messages{
+    min-height: 0px;
+}
+/* >>>.v-application .primary.lighten-3{
+    border-radius: 12px;
+    background: white !important;
+} */
 </style>
