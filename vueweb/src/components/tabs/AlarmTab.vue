@@ -13,6 +13,33 @@
                     color="#5e5e5e"
                     outlined
                     >
+                    <!-- opcje wyboru -->
+                    <v-container>
+                    <!-- tryb pracy -->
+                        <v-row class="toggle-mode">
+                            <p class="toggle-mode-title">Tryb pracy:</p>
+                            <v-btn-toggle 
+                                v-model="toggle_mode"
+                                dark
+                            >
+                                <v-btn :value="'day'">
+                                    <v-icon>mdi-brightness-5</v-icon>
+                                </v-btn>
+                                <v-btn :value="'night'">
+                                    <v-icon>mdi-brightness-3</v-icon>
+                                </v-btn>
+                            </v-btn-toggle>
+                        </v-row>
+                    </v-container>
+                    <v-container class="treeview-container">
+                        <v-treeview 
+                        class="treeview-title"
+                        selectable
+                        dark
+                        :items="days"
+                        >
+                        </v-treeview>
+                    </v-container>
                     <!-- slider -->
                         <v-range-slider 
                             v-model="range"
@@ -56,6 +83,7 @@
                             </v-btn>
                         </v-card-actions>
                     </v-card>
+
                 </v-flex>
                 <v-flex md5 v-for="(alarmInfo,index) in alarms" :key="index">
                     <!-- karta powiadomień -->
@@ -96,10 +124,20 @@ export default {
             max: 172799,
             range: [10000, 50000],
             timeRange: 0,
-            marks: [{
-                value: 86400,
-                label: 'Nasd'
-            }]
+            toggle_mode: '',
+            days: [
+                {
+                    id: 1,
+                    name: 'Dni tygodnia',
+                    children:[
+                        {id: 2, name: 'Poniedziałek'},
+                        {id: 3, name: 'Wtorek'},
+                        {id: 4, name: 'Środa'},
+                        {id: 5, name: 'Czwartek'},
+                        {id: 6, name: 'Piątek'},
+                        {id: 7, name: 'Sobota'},
+                        {id: 8, name: 'Niedziela'}]
+                }]
         }
     },
     methods: {
@@ -184,7 +222,7 @@ export default {
 }
 /* 'X' button for resetting/clearing time */
 >>>.v-text-field input::-webkit-clear-button {
-  display: none;
+    display: none;
 }
 >>>.v-application--is-ltr .v-input__prepend-outer{
     margin-left: 9px;
@@ -201,6 +239,24 @@ export default {
 .range-label-text{
     font-size: 15px;
     color: #e7e9ea;
+}
+.toggle-mode{
+    padding: 10px 0px;
+}
+.toggle-mode-title{
+    font-size: 18px;
+    color: #e7e9ea;
+    padding-right: 20px;
+    padding-left: 10px;
+    margin: 0;
+    transform: translate(0px, 10px);
+}
+>>>.v-treeview-node__label {
+    font-size: 18px;
+    color: #e7e9ea;
+}
+.treeview-container{
+    padding-top: 0;
 }
 
 
