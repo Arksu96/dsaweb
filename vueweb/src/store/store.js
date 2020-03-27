@@ -68,8 +68,9 @@ export default new Vuex.Store({
               resolve()
           })
         },
+        //wysuwanie menu
         toggleShowMenu({commit}){
           commit('toggleShowMenu');
-        }
+        },
     },
 });

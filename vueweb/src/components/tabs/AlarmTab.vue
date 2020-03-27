@@ -97,18 +97,42 @@
                     outlined
                     wrap
                     >
-                    <v-list-item-content>
-                        <div class="overline mb-4">OVERLINE</div>
-                        <v-list-item-title class="headline mb-1">Headline 5</v-list-item-title>
-                        <div>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, 
-                            suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam 
-                            pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque 
-                            semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, 
-                            dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, 
-                            pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus 
+                    <v-row>
+                        <v-card-title primary-title class="alarm-info-title">
+                            Alarm1
+                        </v-card-title>
+                    <v-spacer></v-spacer>
+                        <v-icon dark class="alarm-info-icon">mdi-brightness-3</v-icon>
+                    </v-row>
+                    <div class="alarm-info-break">
+                    </div>
+                        <v-row class="alarm-info-row">
+                        <v-card-text class="alarm-info-text">
+                            Dni tygodnia:
+                        </v-card-text>
+                        <div class="weekDays-selector">
+                            <input type="checkbox" id="weekday-mon" class="weekday" disabled/>
+                            <label for="weekday-mon">Pn</label>
+                            <input type="checkbox" id="weekday-tue" class="weekday" disabled/>
+                            <label for="weekday-tue">Wt</label>
+                            <input type="checkbox" id="weekday-wed" class="weekday" disabled/>
+                            <label for="weekday-wed">Śr</label>
+                            <input type="checkbox" id="weekday-thu" class="weekday" disabled/>
+                            <label for="weekday-thu">Cz</label>
+                            <input type="checkbox" id="weekday-fri" class="weekday" disabled/>
+                            <label for="weekday-fri">Pt</label>
+                            <input type="checkbox" id="weekday-sat" class="weekday" disabled/>
+                            <label for="weekday-sat">Sb</label>
+                            <input type="checkbox" id="weekday-sun" class="weekday" disabled/>
+                            <label for="weekday-sun">Nd</label>
                         </div>
-                    </v-list-item-content>
+                        </v-row>
+                        <v-card-text class="alarm-info-text">
+                            Początek: {{range[0] | formattedTime}}
+                        </v-card-text>
+                         <v-card-text class="alarm-info-text">
+                            Koniec: {{range[1] | formattedTime}}
+                        </v-card-text>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -123,13 +147,7 @@ export default {
     name: 'alarmtab',
     data(){
         return{
-            alarm: {
-                name: '',
-                mode: '',
-                days: [],
-                alarmStart: 0,
-                alarmStop: 0,
-            },
+            alarms: [''],
             min: 0,
             max: 172799,
             range: [10000, 50000],
@@ -195,6 +213,9 @@ export default {
 }
 .mx-auto{
     margin: 10px 5px;
+    border-width: 5px !important;
+    border-color: #8A898D !important;
+    border-radius: 10px !important;
 }
 .theme--light.v-btn.v-btn--icon {
     color: white;
@@ -257,6 +278,50 @@ export default {
 .treeview-container{
     padding-top: 0;
 }
+/*Alarm Info*/
+.alarm-info-title{
+    padding-left: 30px;
+    color: #e7e9ea;
+}
+.alarm-info-icon{
+    padding-right: 30px;
+}
+.alarm-info-break{
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: #C4C4C4;
+    position: absolute;
+}
+.alarm-info-text{
+    color: #e7e9ea !important;
+    font-size: 15px;
+    width: auto;
+}
+.alarm-info-row{
+    padding-left: 10px;
+}
+.weekDays-selector{
+    padding: 10px;
+}
+.weekDays-selector input {
+  display: none!important;
+}
 
+.weekDays-selector input[type=checkbox] + label {
+  display: inline-block;
+  border-radius: 6px;
+  background: #dddddd;
+  height: 40px;
+  width: 30px;
+  margin-right: 5px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.weekDays-selector input[type=checkbox]:checked + label {
+  background: #D63131;
+  color: #ffffff;
+}
 
 </style>
