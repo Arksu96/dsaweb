@@ -31,14 +31,18 @@
                             </v-btn-toggle>
                         </v-row>
                     </v-container>
+                    <!-- dni tygodnia -->
                     <v-container class="treeview-container">
-                        <v-treeview 
-                        class="treeview-title"
-                        selectable
-                        dark
+                        <v-select
+                        v-model="daysSelected"
                         :items="days"
+                        chips
+                        label="Dni tygodnia"
+                        multiple
+                        dark
+                        solo
                         >
-                        </v-treeview>
+                        </v-select>
                     </v-container>
                     <!-- slider -->
                         <v-range-slider 
@@ -83,9 +87,9 @@
                             </v-btn>
                         </v-card-actions>
                     </v-card>
-
+                <!-- Alarm Info -->
                 </v-flex>
-                <v-flex md5 v-for="(alarmInfo,index) in alarms" :key="index">
+                <v-flex md4 v-for="(alarmInfo,index) in alarms" :key="index">
                     <!-- karta powiadomień -->
                     <v-card
                     class="mx-auto"
@@ -119,25 +123,20 @@ export default {
     name: 'alarmtab',
     data(){
         return{
-            alarms: [],
+            alarm: {
+                name: '',
+                mode: '',
+                days: [],
+                alarmStart: 0,
+                alarmStop: 0,
+            },
             min: 0,
             max: 172799,
             range: [10000, 50000],
             timeRange: 0,
             toggle_mode: '',
-            days: [
-                {
-                    id: 1,
-                    name: 'Dni tygodnia',
-                    children:[
-                        {id: 2, name: 'Poniedziałek'},
-                        {id: 3, name: 'Wtorek'},
-                        {id: 4, name: 'Środa'},
-                        {id: 5, name: 'Czwartek'},
-                        {id: 6, name: 'Piątek'},
-                        {id: 7, name: 'Sobota'},
-                        {id: 8, name: 'Niedziela'}]
-                }]
+            days: ['Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota','Niedziela'],
+            daysSelected: [],
         }
     },
     methods: {
