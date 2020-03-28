@@ -42,7 +42,6 @@
                         multiple
                         dark
                         solo
-                        @input="activeDays"
                         >
                         </v-select>
                     </v-container>
@@ -84,14 +83,14 @@
                         </ul>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn icon @click="addCard">
+                            <v-btn icon @click="addCard(); activeDays();">
                             <v-icon>mdi-plus</v-icon>
                             </v-btn>
                         </v-card-actions>
                     </v-card>
                 <!-- Alarm Info -->
                 </v-flex>
-                <v-flex md4 v-for="(alarmInfo,index) in alarms" :key="index">
+                <v-flex md4 v-for="(alarm,index) in alarms" :key="index">
                     <!-- karta powiadomień -->
                     <v-card
                     class="mx-auto"
@@ -101,10 +100,10 @@
                     >
                     <v-row>
                         <v-card-title primary-title class="alarm-info-title">
-                            Alarm1
+                            {{alarm.alarmsInfo.name}}
                         </v-card-title>
                     <v-spacer></v-spacer>
-                        <v-icon dark class="alarm-info-icon">{{alarmInfoMode}}</v-icon>
+                        <v-icon dark class="alarm-info-icon">{{alarm.alarmsInfo.modeIcon}}</v-icon>
                     </v-row>
                     <div class="alarm-info-break">
                     </div>
@@ -115,17 +114,17 @@
                         <div class="weekDays-selector">
                             <label 
                                 class="weekday" 
-                                v-for="(days,index) in daysAlarmInfo" :key="index"
+                                v-for="(days,index) in alarm.alarmsInfo.daysAlarmInfo" :key="index"
                                 v-bind:class="{checked: days.isActive}"
                             >
                             {{days.name}}</label>
                         </div>
                         </v-row>
                         <v-card-text class="alarm-info-text">
-                            Początek: {{range[0] | formattedTime}}
+                            Początek: {{alarm.alarmsInfo.start | formattedTime}}
                         </v-card-text>
                          <v-card-text class="alarm-info-text">
-                            Koniec: {{range[1] | formattedTime}}
+                            Koniec: {{alarm.alarmsInfo.stop | formattedTime}}
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -149,7 +148,19 @@ export default {
             toggleMode: '',
             days: ['Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota','Niedziela'],
             daysSelected: [],
-            daysAlarmInfo: [
+            alarmInfoMode: '',
+        }
+    },
+    methods: {
+        //dodawanie kafelków
+        addCard: function(){
+            //zmienna do środka żeby nie kopiowały się elementy obiektów w tablicy
+            var alarmsInfo={
+                name: '',
+                mode: '',
+                modeIcon: '',
+                days: [],
+                daysAlarmInfo: [
                 {name:'Pn', isActive: false},
                 {name:'Wt', isActive: false},
                 {name:'Śr', isActive: false},
@@ -157,25 +168,18 @@ export default {
                 {name:'Pt', isActive: false},
                 {name:'Sb', isActive: false},
                 {name:'Nd', isActive: false}],
-            alarmInfoMode: '',
-            alarmInfo: {
-                name: '',
-                mode: '',
-                days: [],
                 start: 0,
                 stop: 0
             }
-        }
-    },
-    methods: {
-        //dodawanie kafelków
-        addCard: function(){
-            this.alarmInfo.name = 'Alarm1'
-            this.alarmInfo.mode = this.toggleMode
-            this.alarmInfo.days = this.daysSelected
-            this.alarmInfo.start = this.range[0]
-            this.alarmInfo.stop = this.range[1]
-            console.log(this.alarmInfo)
+            alarmsInfo.name = `Alarm ${this.alarms.length+1}`
+            alarmsInfo.mode = this.toggleMode
+            alarmsInfo.modeIcon = this.alarmInfoMode
+            alarmsInfo.days = this.daysSelected
+            alarmsInfo.start = this.range[0]
+            alarmsInfo.stop = this.range[1]
+            //... pozwala że obiekty się nie kopiują jak robię push
+            this.alarms.push({alarmsInfo})
+            console.log(this.alarms)
         },
         //zamiana str HHmm na liczbe odpowiadającą położeniu suwaka
         onChange(value){
@@ -199,16 +203,17 @@ export default {
             return this.$set(this.range,parseInt(rangeId[1]), this.timeRange)
         },
         //zaznacza dni w alarmInfo
-        activeDays(value){
+        activeDays: function(){
             let _this = this;
+            let alarmsLast = _this.alarms.slice(-1)[0];
             //nadpisuje wszystkie na false żeby odznaczenie działało
-            _this.daysAlarmInfo.forEach(function(set){
+            alarmsLast.alarmsInfo.daysAlarmInfo.forEach(function(set){
                 return set.isActive = false;
             });
             //sprawdza tablice i nadpisuje zmienia isActive dla danego przypadku co zmienia klase label
-            value.forEach(function(item){
+            alarmsLast.alarmsInfo.days.forEach(function(item){
                 if(_this.days.indexOf(item) >=0){
-                    return _this.daysAlarmInfo[_this.days.indexOf(item)].isActive = true;
+                    return alarmsLast.alarmsInfo.daysAlarmInfo[_this.days.indexOf(item)].isActive = true;
                 }
             });
         },
