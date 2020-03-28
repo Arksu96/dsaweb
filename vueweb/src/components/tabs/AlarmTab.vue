@@ -126,6 +126,12 @@
                          <v-card-text class="alarm-info-text">
                             Koniec: {{alarm.alarmsInfo.stop | formattedTime}}
                         </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn icon @click="deleteAlarm(index)">
+                            <v-icon>mdi-minus</v-icon>
+                            </v-btn>
+                        </v-card-actions>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -225,6 +231,16 @@ export default {
                 case 'night':
                     return this.alarmInfoMode = 'mdi-brightness-3';
             }
+        },
+        //usuwanie alarmów
+        deleteAlarm: function(index){
+            this.alarms.splice(index, 1);
+            //zmienia nazwę by elementy były po kolei
+            this.alarms.forEach(function(value, index){
+                if(value.alarmsInfo.name !== `Alarm ${index+1}`){
+                    value.alarmsInfo.name = `Alarm ${index+1}`
+                }
+            })
         }
     },
     filters: {
