@@ -19,8 +19,9 @@
                         <v-row class="toggle-mode">
                             <p class="toggle-mode-title">Tryb pracy:</p>
                             <v-btn-toggle 
-                                v-model="toggle_mode"
+                                v-model="toggleMode"
                                 dark
+                                @change="choosenMode"
                             >
                                 <v-btn :value="'day'">
                                     <v-icon>mdi-brightness-5</v-icon>
@@ -41,6 +42,7 @@
                         multiple
                         dark
                         solo
+                        @input="activeDays"
                         >
                         </v-select>
                     </v-container>
@@ -102,7 +104,7 @@
                             Alarm1
                         </v-card-title>
                     <v-spacer></v-spacer>
-                        <v-icon dark class="alarm-info-icon">mdi-brightness-3</v-icon>
+                        <v-icon dark class="alarm-info-icon">{{alarmInfoMode}}</v-icon>
                     </v-row>
                     <div class="alarm-info-break">
                     </div>
@@ -111,20 +113,12 @@
                             Dni tygodnia:
                         </v-card-text>
                         <div class="weekDays-selector">
-                            <input type="checkbox" id="weekday-mon" class="weekday" disabled/>
-                            <label for="weekday-mon">Pn</label>
-                            <input type="checkbox" id="weekday-tue" class="weekday" disabled/>
-                            <label for="weekday-tue">Wt</label>
-                            <input type="checkbox" id="weekday-wed" class="weekday" disabled/>
-                            <label for="weekday-wed">Śr</label>
-                            <input type="checkbox" id="weekday-thu" class="weekday" disabled/>
-                            <label for="weekday-thu">Cz</label>
-                            <input type="checkbox" id="weekday-fri" class="weekday" disabled/>
-                            <label for="weekday-fri">Pt</label>
-                            <input type="checkbox" id="weekday-sat" class="weekday" disabled/>
-                            <label for="weekday-sat">Sb</label>
-                            <input type="checkbox" id="weekday-sun" class="weekday" disabled/>
-                            <label for="weekday-sun">Nd</label>
+                            <label 
+                                class="weekday" 
+                                v-for="(days,index) in daysAlarmInfo" :key="index"
+                                v-bind:class="{checked: days.isActive}"
+                            >
+                            {{days.name}}</label>
                         </div>
                         </v-row>
                         <v-card-text class="alarm-info-text">
@@ -147,21 +141,41 @@ export default {
     name: 'alarmtab',
     data(){
         return{
-            alarms: [''],
+            alarms: [],
             min: 0,
             max: 172799,
             range: [10000, 50000],
             timeRange: 0,
-            toggle_mode: '',
+            toggleMode: '',
             days: ['Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota','Niedziela'],
             daysSelected: [],
+            daysAlarmInfo: [
+                {name:'Pn', isActive: false},
+                {name:'Wt', isActive: false},
+                {name:'Śr', isActive: false},
+                {name:'Cz', isActive: false},
+                {name:'Pt', isActive: false},
+                {name:'Sb', isActive: false},
+                {name:'Nd', isActive: false}],
+            alarmInfoMode: '',
+            alarmInfo: {
+                name: '',
+                mode: '',
+                days: [],
+                start: 0,
+                stop: 0
+            }
         }
     },
     methods: {
         //dodawanie kafelków
         addCard: function(){
-            this.alarms.push({
-            })
+            this.alarmInfo.name = 'Alarm1'
+            this.alarmInfo.mode = this.toggleMode
+            this.alarmInfo.days = this.daysSelected
+            this.alarmInfo.start = this.range[0]
+            this.alarmInfo.stop = this.range[1]
+            console.log(this.alarmInfo)
         },
         //zamiana str HHmm na liczbe odpowiadającą położeniu suwaka
         onChange(value){
@@ -184,6 +198,29 @@ export default {
             //pozwala zmienić wartość w kokretnym na podstawie id
             return this.$set(this.range,parseInt(rangeId[1]), this.timeRange)
         },
+        //zaznacza dni w alarmInfo
+        activeDays(value){
+            let _this = this;
+            //nadpisuje wszystkie na false żeby odznaczenie działało
+            _this.daysAlarmInfo.forEach(function(set){
+                return set.isActive = false;
+            });
+            //sprawdza tablice i nadpisuje zmienia isActive dla danego przypadku co zmienia klase label
+            value.forEach(function(item){
+                if(_this.days.indexOf(item) >=0){
+                    return _this.daysAlarmInfo[_this.days.indexOf(item)].isActive = true;
+                }
+            });
+        },
+        //wybór trybu do AlarmInfo
+        choosenMode(value){
+            switch(value){
+                case 'day':
+                    return this.alarmInfoMode = 'mdi-brightness-5';
+                case 'night':
+                    return this.alarmInfoMode = 'mdi-brightness-3';
+            }
+        }
     },
     filters: {
         //formatowanie na HH:mm
@@ -301,6 +338,7 @@ export default {
 .alarm-info-row{
     padding-left: 10px;
 }
+/* dni tygodnia */
 .weekDays-selector{
     padding: 10px;
 }
@@ -308,7 +346,7 @@ export default {
   display: none!important;
 }
 
-.weekDays-selector input[type=checkbox] + label {
+.weekday {
   display: inline-block;
   border-radius: 6px;
   background: #dddddd;
@@ -319,7 +357,7 @@ export default {
   text-align: center;
 }
 
-.weekDays-selector input[type=checkbox]:checked + label {
+.checked {
   background: #D63131;
   color: #ffffff;
 }
